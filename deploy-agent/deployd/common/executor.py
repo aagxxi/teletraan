@@ -192,7 +192,7 @@ class Executor(object):
         try:
             log.info("Gracefully shutdown currently running process")
             os.killpg(process.pid, signal.SIGTERM)
-            process.wait(timeout=30)
+            process.wait(timeout=self._config.get_subprocess_terminate_timeout())
         except Exception as e:
             log.debug('Failed to terminate process: {}'.format(e))
             self._kill_process(process)
